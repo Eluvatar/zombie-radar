@@ -14,7 +14,8 @@ def handle_event(entry_delta):
     entry = db["nat"]
     last_update = time.gmtime(entry["ts"])
     event_ts = time.gmtime(entry_delta["ts"])
-    if( event_ts.ts_hour > last_update.ts_hour ):
+    if( event_ts.tm_hour > last_update.tm_hour 
+        or (event_ts.tm_hour == 0 and last_update.tm_hour != 0) ):
         db[nat] = entry = scan_nation(nat)
         return
     if( event_ts < last_update ):
