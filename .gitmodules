@@ -1,0 +1,6 @@
+[submodule "transmission"]
+	path = transmission
+	url = git://github.com/Eluvatar/transmission.git
+[submodule "parser"]
+	path = parser
+	url = git://github.com/Eluvatar/trawler-parser-python.git
