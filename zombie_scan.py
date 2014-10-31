@@ -2,13 +2,10 @@
 from parser.api import request as api_request
 from time import struct_time
 def scan_nation(nat):
-    try:
-        entry = {"name":nat}
-        natxml = api_request({'nation':nat,'q':'zombie'})
-        entry = parse_nation(natxml)
-        entry["name"] = nat
-    except:
-        pass
+    entry = {"name":nat}
+    natxml = api_request({'nation':nat,'q':'zombie'})
+    entry = parse_nation(natxml)
+    entry["name"] = nat
     return entry
 
 def parse_nation(natxml):
