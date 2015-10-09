@@ -26,6 +26,9 @@ def on_arrival(reg, nat):
 def on_founded(nat):
     pass
 
+def on_refounded(nat):
+    pass
+
 def handle_event(nat, reg_from, reg_to):
     on_departure(reg_from, nat)
     on_arrival(reg_to, nat)
@@ -39,6 +42,12 @@ def handle_movement(event):
 
 @subscribe(pattern="@@(nation)@@ was founded in %%(region)%%.")
 def handle_founded(event):
+    _handle_founded(event)
+
+@subscribe(pattern="@@(nation)@@ was refounded in %%(region)%%.")
+    _handle_founded(event)
+
+def _handle_founded(event):
     nat = event.group(1)
     reg = event.group(2)
     entry = {"name":nat}
