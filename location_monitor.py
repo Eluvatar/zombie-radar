@@ -45,6 +45,7 @@ def handle_founded(event):
     _handle_founded(event)
 
 @subscribe(pattern="@@(nation)@@ was refounded in %%(region)%%.")
+def handle_refounded(event):
     _handle_founded(event)
 
 def _handle_founded(event):

@@ -15,24 +15,28 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from transmission.reception import subscribe
-import time
+import time, threading
 from zombie_scan import scan_nation
 
 db = dict()
+dblock = threading.Lock()
 
 def on_entry_change(entry):
     pass
 
 def handle_event(entry_delta):
     nat = entry_delta["name"]
-    if nat not in db:
-        return
-    entry = db[nat]
+    with dblock:
+        if nat not in db:
+            return
+        entry = db[nat]
     last_update = entry["ts"]
     event_ts = entry_delta["ts"]
     if( event_ts.tm_hour > last_update.tm_hour 
         or (event_ts.tm_hour == 0 and last_update.tm_hour != 0) ):
-        db[nat] = entry = scan_nation(nat)
+        entry = scan_nation(nat)
+        with dblock:
+            db[nat] = entry
         return
     if( event_ts < last_update ):
         return

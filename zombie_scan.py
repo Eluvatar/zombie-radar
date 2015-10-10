@@ -17,6 +17,11 @@
 
 from parser.api import request as api_request
 from time import struct_time
+
+class ZombiesCloaked(Exception):
+    """When Zombies are invisible"""
+    pass
+
 def scan_nation(nat):
     entry = {"name":nat}
     natxml = api_request({'nation':nat,'q':'zombie'})
@@ -28,6 +33,8 @@ def parse_nation(natxml):
     entry = dict()
     entry["ts"] = struct_time(natxml.headers.getdate('Date'))
     zx = natxml.find('ZOMBIE')
+    if zx is None:
+        raise ZombiesCloaked()
     entry["action"] = zx.find('ZACTION').text
     entry["zombies"] = int(zx.find('ZOMBIES').text)
     entry["survivors"] = int(zx.find('SURVIVORS').text)
