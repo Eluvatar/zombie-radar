@@ -22,5 +22,6 @@ import argparse
 
 parser = argparse.ArgumentParser(description="Observe happenings")
 parser.add_argument('-u','--user', required=True, help='a nation name, email, or web page to identify the user as per item 1 of the NS API Terms of Use: http://www.nationstates.net/pages/api.html#terms')
+parser.add_argument('--period', type=float, help='a period in seconds between checks of the world happenings feed. 3.0 by default.', default=3.0)
 args = parser.parse_args()
-transmission.loop(args.user,6261)
+transmission.loop(args.user,6261,period=period)
