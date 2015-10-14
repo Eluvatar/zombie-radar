@@ -42,16 +42,6 @@ var server = 'your.server.address';
 
 var region = region_name.toLowerCase().replace(/ /g,'_')
 
-
-function action_filter(action) {
-  $('#top_nations tbody tr').hide();
-  $('.'+action).show();   
-}
-
-function show_ratios() {
-  $("#top_nations .ratio").show();
-}
-
 function action_filter(action) {
   $('#top_nations tbody tr').hide();
   $('.'+action).show();
