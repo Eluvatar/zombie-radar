@@ -54,7 +54,7 @@ def initialize_nations(nations):
                  cs_name = elem.find('NAME').text
                  nat = id_str(cs_name)
                  if nat in nations:
-                     db[nat] = init_nation(elem, dump_ts, cs_name)
+                     db[nat] = _init_nation(elem, dump_ts, cs_name)
                  root.clear() 
      except PE as e:
          lineno, column = e.position
@@ -74,7 +74,7 @@ def initialize_nations(nations):
      # handle new nations
      new_nations = nations - frozenset(db.keys())
      for nat in new_nations:
-         db[nat] = init_nation(nat, api)
+         db[nat] = init_nation(nat)
      return db
 
 def init_nation(nat):
