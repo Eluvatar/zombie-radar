@@ -28,6 +28,11 @@ import itertools as IT
 from time import struct_time, strftime
 import gzip
 
+try:
+    import progressbar
+except ImportError:
+    progressbar = False
+
 def initialize_nations(nations):
      trawler.user_agent = api.user_agent
      res = trawler.request('GET', '/pages/nations.xml.gz', headers=True)
@@ -37,20 +42,29 @@ def initialize_nations(nations):
      dump_ts = struct_time(_ts)
      print "nations.xml date: {0} GMT".format(strftime('%Y-%m-%d %H:%M:%S', dump_ts))
      
+     dump_size = int(res.headers['content-length'])
+
      xf = gzip.GzipFile(fileobj=res)
      context = ET.iterparse(xf, events=('start','end'))
      ic = iter(context)
      db = dict()
-   
-     i = 0
+  
+     if progressbar:
+         pb = progressbar.ProgressBar(maxval=dump_size).start()
+     else:
+         print "printing a . for every 100 nations processed (of about 100,000)"
+         i = 0
       
      try: 
          event, root = ic.next()
          for event, elem in ic:
              if elem.tag == 'NATION' and event == 'end':
-                 if i%100 == 0:
-                     print ".",
-                 i += 1
+		 if progressbar:
+                     pb.update(res.tell())
+                 else:
+                     if i%100 == 0:
+                         print ".",
+                     i += 1
                  cs_name = elem.find('NAME').text
                  nat = id_str(cs_name)
                  if nat in nations:

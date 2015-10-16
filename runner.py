@@ -112,7 +112,7 @@ if os.path.isfile("zombies.json"):
         db[nat] = entry
 else:
     ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f %Z")
-    print "{0} Initializing zombie data for the regions {1} (this may take a while: printing a . for every 100 nations processed, including nations in other regions skipped)".format(ts, list(region_names))
+    print "{0} Initializing zombie data for the regions {1} (this may take a while)".format(ts, list(region_names))
     db = zombie_init.initialize_nations(set.union(*regions.values()))
     ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f %Z")
     print "{0} Initialized zombie data, saving to zombies.json".format(ts)
