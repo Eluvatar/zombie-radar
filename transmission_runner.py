@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#   Copyright (C) 2013-2014 Eluvatar
+#   Copyright (C) 2013-2015 Eluvatar
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
