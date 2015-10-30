@@ -104,7 +104,7 @@ def _init_nation(elem, dump_ts, cs_name=None):
      entry["name"] = cs_name
      entry["ts"] = dump_ts
      entry["action"] = None
-     entry["zombies"] = pop / 10
-     entry["survivors"] = pop - (pop / 10)
+     entry["zombies"] = int(pop * 0.08)
+     entry["survivors"] = pop - int(pop * 0.08)
      entry["dead"] = 0
      return entry
